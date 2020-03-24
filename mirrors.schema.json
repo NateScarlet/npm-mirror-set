@@ -1,0 +1,29 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "https://github.com/NateScarlet/npm-mirror-set/mirrors.schema.json",
+  "type": "object",
+  "properties": {
+    "mirrors": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "description": "mirror name" },
+          "config": {
+            "type": "object",
+            "description": "npm config for this mirror",
+            "patternProperties": {
+              "": {
+                "type": "string"
+              }
+            },
+            "items": { "type": "string", "description": "config value" }
+          }
+        },
+        "required": ["name", "config"],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": ["mirrors"]
+}

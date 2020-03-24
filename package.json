@@ -1,0 +1,32 @@
+{
+  "name": "npm-mirror-set",
+  "version": "1.0.0",
+  "description": "npm config for package mirrors.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "npm-mirror-set": "index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NateScarlet/npm-mirror-set.git"
+  },
+  "files": [
+    "mirrors.json"
+  ],
+  "keywords": [
+    "mirror",
+    "config"
+  ],
+  "author": "NateScarlet@Gmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/NateScarlet/npm-mirror-set/issues"
+  },
+  "homepage": "https://github.com/NateScarlet/npm-mirror-set#readme",
+  "devDependencies": {
+    "@types/node": "^13.9.3"
+  }
+}
