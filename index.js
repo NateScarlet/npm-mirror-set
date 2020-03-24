@@ -22,12 +22,17 @@ const options = nopt(
   }
 );
 
-const usage = `Usage: npm-mirror-set [-gup] taobao
+const usage = `Usage: npm-mirror-set [-gup] <name>
 
     --global,-g   Save to global npm config.
     --user,-u     Save to user npm config.
                   Default when no save target specified.
-    --project,-p  Save to global npm config.\
+    --project,-p  Save to project npm config.
+    name          Mirror config name.
+         taobao   Use https://npm.taobao.org as mirror
+
+If you want add more config, send PR to
+https://github.com/NateScarlet/npm-mirror-set\
 `;
 
 if (options.help) {
