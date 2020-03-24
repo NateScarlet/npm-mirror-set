@@ -2,35 +2,88 @@
 /// <reference lib="es2016" types="node"/>
 "use strict";
 
+const npm = require("npm");
+const nopt = require("nopt");
 /** @type { {mirrors: { name: string, config: Record<string, string>}[] } } */
 const { mirrors } = require("./mirrors.json");
-const child_process = require("child_process");
 
-/**
- *
- * @param {string[]} v
- * @returns { {mirror: string} }
- */
-function parseArgs(v) {
-  return { mirror: v[v.length - 1] };
+const options = nopt(
+  {
+    help: Boolean,
+    global: Boolean,
+    project: Boolean,
+    user: Boolean
+  },
+  {
+    h: ["--help"],
+    g: ["--global"],
+    u: ["--user"],
+    p: ["--project"]
+  }
+);
+
+const usage = `Usage: npm-mirror-set [-gup] taobao
+
+    --global,-g   Save to global npm config.
+    --user,-u     Save to user npm config.
+                  Default when no save target specified.
+    --project,-p  Save to global npm config.\
+`;
+
+if (options.help) {
+  console.log(usage);
+  process.exit(0);
 }
 
-const args = parseArgs(process.argv);
-const selected = mirrors.find(i => i.name === args.mirror);
+const selected =
+  options.argv.remain.length === 1 &&
+  mirrors.find(i => i.name === options.argv.remain[0]);
 if (!selected) {
-  console.error(`Usage: npm-mirror-set taobao`);
+  console.error(usage);
   process.exit(1);
 }
 
-function run(file, args) {
-  const command = [file, ...args].join(" ");
-  console.log("- " + command);
-  child_process.execFileSync(file, args, {
-    stdio: "inherit",
-    shell: true
+function handleError(err) {
+  if (!err) {
+    return;
+  }
+  console.error(err.stack || err.message);
+  process.exit(typeof err.errno === "number" ? err.errno : 1);
+}
+
+function applyConfig(mirror, target) {
+  for (const [k, v] of Object.entries(mirror.config)) {
+    npm.config.set(k, v, target);
+  }
+  npm.config.save(target, err => {
+    handleError(err);
+    console.log(
+      JSON.stringify({
+        msg: "Mirror config set",
+        name: mirror.name,
+        target,
+        path: npm.config.sources[target].path
+      })
+    );
   });
 }
 
-for (const [k, v] of Object.entries(selected.config)) {
-  run("npm", ["config", "set", k, v]);
-}
+npm.load({}, err => {
+  handleError(err);
+  const targets = [];
+  if (options.global) {
+    targets.push("global");
+  }
+  if (options.user) {
+    targets.push("user");
+  }
+  if (options.project) {
+    targets.push("project");
+  }
+  if (targets.length == 0) {
+    targets.push("user");
+  }
+  for (const i of targets) {
+    applyConfig(selected, i);
+  }
+});

@@ -28,5 +28,9 @@
   "homepage": "https://github.com/NateScarlet/npm-mirror-set#readme",
   "devDependencies": {
     "@types/node": "^13.9.3"
+  },
+  "dependencies": {
+    "nopt": "^4.0.0",
+    "npm": "^6.0.0"
   }
 }
