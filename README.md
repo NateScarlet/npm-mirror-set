@@ -8,4 +8,4 @@ Set npm package mirrors.
 npx npm-mirror-set taobao
 ```
 
-Only support taobao mirror right now. PR welcome.
+Only taobao mirror supported right now. PR welcome.
