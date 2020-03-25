@@ -7,7 +7,6 @@ const nopt = require("nopt");
 /** @type {
     {
         mirrors: Record<string, {
-            name: string;
             description: string;
             config: Record<string, string>;
         }>
@@ -51,9 +50,9 @@ if (options.help) {
   process.exit(0);
 }
 
-const selected =
-  options.argv.remain.length === 1 && mirrors[options.argv.remain[0]];
-if (!selected) {
+const name =
+  (options.argv.remain.length === 1 && options.argv.remain[0]) || undefined;
+if (!(name && mirrors[name])) {
   console.error(usage);
   process.exit(1);
 }
@@ -66,8 +65,8 @@ function handleError(err) {
   process.exit(typeof err.errno === "number" ? err.errno : 1);
 }
 
-function applyConfig(mirror, target) {
-  for (const [k, v] of Object.entries(mirror.config)) {
+function applyConfig(name, target) {
+  for (const [k, v] of Object.entries(mirrors[name].config)) {
     npm.config.set(k, v, target);
   }
   npm.config.save(target, err => {
@@ -75,7 +74,7 @@ function applyConfig(mirror, target) {
     console.log(
       JSON.stringify({
         msg: "Mirror config set",
-        name: mirror.name,
+        name,
         target,
         path: npm.config.sources[target].path
       })
@@ -99,6 +98,6 @@ npm.load({}, err => {
     targets.push("user");
   }
   for (const i of targets) {
-    applyConfig(selected, i);
+    applyConfig(name, i);
   }
 });
