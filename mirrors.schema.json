@@ -4,24 +4,28 @@
   "type": "object",
   "properties": {
     "mirrors": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "properties": {
-          "name": { "type": "string", "description": "mirror name" },
-          "config": {
-            "type": "object",
-            "description": "npm config for this mirror",
-            "patternProperties": {
-              "": {
-                "type": "string"
-              }
+      "type": "object",
+      "patternProperties": {
+        "": {
+          "type": "object",
+          "properties": {
+            "description": {
+              "type": "string",
+              "description": "mirror description"
             },
-            "items": { "type": "string", "description": "config value" }
-          }
-        },
-        "required": ["name", "config"],
-        "additionalProperties": false
+            "config": {
+              "type": "object",
+              "description": "npm config",
+              "patternProperties": {
+                "": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "required": ["config"],
+          "additionalProperties": false
+        }
       }
     }
   },

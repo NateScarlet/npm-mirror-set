@@ -4,7 +4,15 @@
 
 const npm = require("npm");
 const nopt = require("nopt");
-/** @type { {mirrors: { name: string, config: Record<string, string>}[] } } */
+/** @type {
+    {
+        mirrors: Record<string, {
+            name: string;
+            description: string;
+            config: Record<string, string>;
+        }>
+    }
+ } */
 const { mirrors } = require("./mirrors.json");
 
 const options = nopt(
@@ -22,17 +30,20 @@ const options = nopt(
   }
 );
 
-const usage = `Usage: npm-mirror-set [-gup] <name>
+const usage = `\
+Usage: npm-mirror-set [-gup] <name>
 
-    --global,-g   Save to global npm config.
-    --user,-u     Save to user npm config.
-                  Default when no save target specified.
-    --project,-p  Save to project npm config.
-    name          Mirror config name.
-         taobao   Use https://npm.taobao.org as mirror
+    name            Mirror config name.
+${Object.entries(mirrors)
+  .map(([k, v]) => k.padStart(16) + "    " + v.description)
+  .join("\n")}
+    --global,-g     Save to global npm config.
+    --user,-u       Save to user npm config.
+                    Default when no save target specified.
+    --project,-p    Save to project npm config.
 
 If you want add more config, send PR to
-https://github.com/NateScarlet/npm-mirror-set\
+https://github.com/NateScarlet/npm-mirror-set
 `;
 
 if (options.help) {
@@ -41,8 +52,7 @@ if (options.help) {
 }
 
 const selected =
-  options.argv.remain.length === 1 &&
-  mirrors.find(i => i.name === options.argv.remain[0]);
+  options.argv.remain.length === 1 && mirrors[options.argv.remain[0]];
 if (!selected) {
   console.error(usage);
   process.exit(1);

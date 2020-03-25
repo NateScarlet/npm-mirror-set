@@ -1,8 +1,8 @@
 {
   "$schema": "./mirrors.schema.json",
-  "mirrors": [
-    {
-      "name": "taobao",
+  "mirrors": {
+    "taobao": {
+      "description": "Use https://npm.taobao.org as mirror.",
       "config": {
         "registry": "https://registry.npm.taobao.org/",
         "phantomjs-cdnurl": "https://npm.taobao.org/mirrors/phantomjs",
@@ -38,5 +38,5 @@
         "zmq-prebuilt-binary-host-mirror": "https://npm.taobao.org/mirrors/zmq-prebuilt/v{version}"
       }
     }
-  ]
+  }
 }
