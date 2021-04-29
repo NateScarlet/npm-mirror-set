@@ -35,7 +35,8 @@
         "sqlite3-binary-site": "https://npm.taobao.org/mirrors/sqlite3",
         "utf-8-validate-binary-host-mirror": "https://npm.taobao.org/mirrors/utf-8-validate/v{version}",
         "utp-native-binary-host-mirror": "https://npm.taobao.org/mirrors/utp-native/v{version}",
-        "zmq-prebuilt-binary-host-mirror": "https://npm.taobao.org/mirrors/zmq-prebuilt/v{version}"
+        "zmq-prebuilt-binary-host-mirror": "https://npm.taobao.org/mirrors/zmq-prebuilt/v{version}",
+        "sentrycli-cdnurl": "https://npm.taobao.org/mirrors/sentry-cli"
       }
     }
   }
