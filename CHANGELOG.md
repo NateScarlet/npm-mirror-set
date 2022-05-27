@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.3.2](https://github.com/NateScarlet/npm-mirror-set/compare/v1.3.1...v1.3.2) (2022-05-27)
+
+
+### Bug Fixes
+
+* follow taomao mirror domain change ([632d1ef](https://github.com/NateScarlet/npm-mirror-set/commit/632d1ef682aade33849b62cf208cbfaf8160ceb9))
+
 ### [1.3.1](https://github.com/NateScarlet/npm-mirror-set/compare/v1.3.0...v1.3.1) (2021-04-29)
 
 ## [1.3.0](https://github.com/NateScarlet/npm-mirror-set/compare/v1.2.1...v1.3.0) (2021-04-29)
