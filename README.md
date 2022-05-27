@@ -5,7 +5,7 @@
 Set npm package mirrors.
 
 ```shell
-npm_config_registry=http://registry.npm.taobao.org npx npm-mirror-set taobao
+npm_config_registry=http://registry.npmmirror.com npx npm-mirror-set taobao
 ```
 
 Only taobao mirror supported right now. PR welcome.
